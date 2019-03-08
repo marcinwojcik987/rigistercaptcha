@@ -30,6 +30,20 @@ if (isset($_POST['email'])){
         $_SESSION['e_email']="Podaj poprawny e-mail!";
     }
 
+    //sprawdzenie czy oba hasla sa takie same oraz walidacja hasla
+    $haslo1 = $_POST['haslo1'];
+    $haslo2 = $_POST['haslo2'];
+    if ((strlen($haslo1)<8 || strlen($haslo1)>20)){
+        $wszystko_OK=false;
+        $_SESSION['e_haslo'] = "Haslo musi miec od 8 do 20 znakow";
+    }
+
+    if ($haslo1!=$haslo2){
+        $wszystko_OK=false;
+        $_SESSION['e_haslo'] = "Hasla sie nie zgadzajo";
+    }
+
+
     if ($wszystko_OK==true){
         //wszystkie testy zaliczone, dodajemy gracza
         echo "udana walidacja";
@@ -81,6 +95,12 @@ if (isset($_POST['email'])){
         ?>     
         Twoje hasło <br> <input type="password" name="haslo1"><br>
         Powtórz hasło <br> <input type="password" name="haslo2"><br>
+        <?php
+            if (isset($_SESSION['e_haslo'])){
+                echo '<div class="error">' . $_SESSION['e_haslo']. '</div>';
+                unset($_SESSION['e_haslo']);
+            }
+        ?>     
         <label>
         <!-- label zamienia napis akceptuje regulamin na clickable -->
         <input type="checkbox" name="regulamin">Akceptuje regulamin 
