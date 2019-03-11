@@ -51,6 +51,27 @@ if (isset($_POST['email'])){
         echo "udana walidacja";
         exit();
     }
+
+    //czy zostal zaakceptowany regulamin
+    
+    if (!isset($_POST['regulamin'])) {
+        $wszystko_OK=false;
+        $_SESSION['e_regulamin'] = "Akceptacja regulaminu jest wymagana";
+    }
+
+    //weryfikacja captchy
+
+    $sekret = "6LecOpYUAAAAAGC1QJ7FBy5aSLdjCG_HKlq91rLH";
+    
+    $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
+
+    $odpowiedz = json_decode($sprawdz);
+
+    if ($odpowiedz->success==false){
+        $wszystko_OK=false;
+        $_SESSION['e_captcha'] = "Potwierdz ze nie jestes botem";
+    }
+
 }
 
 ?>
@@ -108,7 +129,19 @@ if (isset($_POST['email'])){
         <!-- label zamienia napis akceptuje regulamin na clickable -->
         <input type="checkbox" name="regulamin">Akceptuje regulamin 
         </label>
+        <?php
+            if (isset($_SESSION['e_regulamin'])){
+                echo '<div class="error">' . $_SESSION['e_regulamin']. '</div>';
+                unset($_SESSION['e_regulamin']);
+            }
+        ?>
         <div class="g-recaptcha" data-sitekey="6LecOpYUAAAAAEHb4JF4uVLESZ7RowY_2CuhJVJV"></div>
+        <?php
+            if (isset($_SESSION['e_captcha'])){
+                echo '<div class="error">' . $_SESSION['e_captcha']. '</div>';
+                unset($_SESSION['e_captcha']);
+            }
+        ?>
         <br>
         <input type="submit" value="Zarejestruj sie">
     </form>
