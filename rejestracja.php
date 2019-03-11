@@ -46,12 +46,7 @@ if (isset($_POST['email'])){
     $haslo_hash=password_hash($haslo1, PASSWORD_DEFAULT);
     // echo $haslo_hash; exit();
 
-    if ($wszystko_OK==true){
-        //wszystkie testy zaliczone, dodajemy gracza
-        echo "udana walidacja";
-        exit();
-    }
-
+ 
     //czy zostal zaakceptowany regulamin
     
     if (!isset($_POST['regulamin'])) {
@@ -66,11 +61,51 @@ if (isset($_POST['email'])){
     $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
 
     $odpowiedz = json_decode($sprawdz);
-
+    
     if ($odpowiedz->success==false){
         $wszystko_OK=false;
         $_SESSION['e_captcha'] = "Potwierdz ze nie jestes botem";
     }
+
+    require_once "connect.php";
+        //sprobuj sie polaczyc
+    try {
+        $polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+        //jezeli wystapil jakis blad to rzuc bledem
+        if ($polaczenie->connect_errno!=0)
+        {
+            throw new Exception (mysqli_connect_errno());
+        }
+        else {
+            //czy email juz istnieje
+            $rezultat = $polaczenie->query("SELECT id FROM uzytkownicy WHERE email='$email'");
+
+            if (!$rezultat) throw new Exception($polaczenie->error);
+
+            $ile_takich_maili = $rezultat->num_rows;
+            if($ile_takich_maili>0) {
+                $wszystko_OK=false;
+                $_SESSION['e_email'] = "Istnieje juz konto o tym adresie email";
+            }
+
+            if ($wszystko_OK==true){
+                //wszystkie testy zaliczone, dodajemy gracza
+                echo "udana walidacja";
+                
+                if ($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL, '$nick', '$haslo_hash', '$email', 100, 100, 100, 14)")){
+                    $_SESSION['udana_rejestracja']==true;
+                    header("Location:witamy.php");
+                }
+            }
+
+            $polaczenie->close();
+        }
+    }
+        //zlap blad ktory wystapil
+    catch (Exception $e) {
+        echo '<span style="color:red">Blad serwera, sorry gosciu!</span>';
+        // echo "<br> Info dla mnie: ".$e;
+    }   
 
 }
 
