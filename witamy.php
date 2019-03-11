@@ -2,7 +2,7 @@
 session_start();
 //sesja umozliwia przekazywanie zmiennych pomiedzy podstronami w latwy sposob, z uzyciem globalnej tablicy asocjacyjnej o nazwie $_SESSION
 //zmienne sa przechowywane po stronie serwera, a klient na swoim komputerze posiada tylko tzw identyfikator sesji PHPSESSID
-if (isset($_SESSION['udana_rejestracja'])) {
+if (!isset($_SESSION['udana_rejestracja'])) {
     header('Location:index.php');
     //dodaje funkcje exit poniewaz normalnie skrypt by przeszedl caly i nastepnie przekierowal by do innego pliku, szkoda mocy obliczeniowej dlatego exitem koncze przetwarzanie
     exit();
