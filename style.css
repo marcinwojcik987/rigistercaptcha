@@ -1,13 +1,26 @@
-/* 
-form {
+
+/* form {
     position: absolute;
     top: 0%;
 } */
 
+.error 
+{
+    color:red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
+.register_form, .zaloguj_form 
+{
+    position: absolute !important;
+    top: 6% !important;
+}
 
-
-
+.register, .zaloguj_button 
+{
+    margin-bottom:10px;
+}
 /* 
 body {
     font-size: 20px !important;

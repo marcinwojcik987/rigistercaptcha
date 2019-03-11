@@ -136,49 +136,55 @@ if (isset($_POST['email'])){
      </style>
 </head>
 <body>
-    <form method="POST" action="rejestracja.php">
-        Nickname <br> <input type="text" name="nick"><br>
-        <?php
-            if (isset($_SESSION['e_nick'])){
-                echo '<div class="error">' . $_SESSION['e_nick']. '</div>';
-                unset($_SESSION['e_nick']);
-            }
-        ?>
-        E-mail <br> <input type="text" name="email"><br>   
-        <?php
-            if (isset($_SESSION['e_email'])){
-                echo '<div class="error">' . $_SESSION['e_email']. '</div>';
-                unset($_SESSION['e_email']);
-            }
-        ?>     
-        Twoje hasło <br> <input type="password" name="haslo1"><br>
-        <?php
-            if (isset($_SESSION['e_haslo'])){
-                echo '<div class="error">' . $_SESSION['e_haslo']. '</div>';
-                unset($_SESSION['e_haslo']);
-            }
-        ?> 
-        Powtórz hasło <br> <input type="password" name="haslo2"><br>
-          
-        <label>
-        <!-- label zamienia napis akceptuje regulamin na clickable -->
-        <input type="checkbox" name="regulamin">Akceptuje regulamin 
-        </label>
-        <?php
-            if (isset($_SESSION['e_regulamin'])){
-                echo '<div class="error">' . $_SESSION['e_regulamin']. '</div>';
-                unset($_SESSION['e_regulamin']);
-            }
-        ?>
-        <div class="g-recaptcha" data-sitekey="6LecOpYUAAAAAEHb4JF4uVLESZ7RowY_2CuhJVJV"></div>
-        <?php
-            if (isset($_SESSION['e_captcha'])){
-                echo '<div class="error">' . $_SESSION['e_captcha']. '</div>';
-                unset($_SESSION['e_captcha']);
-            }
-        ?>
-        <br>
-        <input type="submit" value="Zarejestruj sie">
-    </form>
+<div class="container">
+          <div class="row justify-content-center"> 
+            <form class="form-group register_form" method="POST" action="rejestracja.php">
+                    Nickname <br> <input class="form-control" type="text" name="nick"><br>
+                    <?php
+                        if (isset($_SESSION['e_nick'])){
+                            echo '<div class="error">' . $_SESSION['e_nick']. '</div>';
+                            unset($_SESSION['e_nick']);
+                        }
+                    ?>
+                    E-mail <br> <input class="form-control" type="text" name="email"><br>   
+                    <?php
+                        if (isset($_SESSION['e_email'])){
+                            echo '<div class="error">' . $_SESSION['e_email']. '</div>';
+                            unset($_SESSION['e_email']);
+                        }
+                    ?>     
+                    Twoje hasło <br> <input class="form-control" type="password" name="haslo1"><br>
+                    <?php
+                        if (isset($_SESSION['e_haslo'])){
+                            echo '<div class="error">' . $_SESSION['e_haslo']. '</div>';
+                            unset($_SESSION['e_haslo']);
+                        }
+                    ?> 
+                    Powtórz hasło <br> <input class="form-control" type="password" name="haslo2"><br>
+                    
+                    <label>
+                    <!-- label zamienia napis akceptuje regulamin na clickable -->
+                    <input  type="checkbox" name="regulamin">Akceptuje regulamin 
+                    </label>
+                    <?php
+                        if (isset($_SESSION['e_regulamin'])){
+                            echo '<div class="error">' . $_SESSION['e_regulamin']. '</div>';
+                            unset($_SESSION['e_regulamin']);
+                        }
+                    ?>
+                    <div class="g-recaptcha" data-sitekey="6LecOpYUAAAAAEHb4JF4uVLESZ7RowY_2CuhJVJV"></div>
+                    <?php
+                        if (isset($_SESSION['e_captcha'])){
+                            echo '<div class="error">' . $_SESSION['e_captcha']. '</div>';
+                            unset($_SESSION['e_captcha']);
+                        }
+                    ?>
+                    <br>
+                    <button type="submit" class="btn btn-primary form-control register">Zarejestruj sie</button>
+                    <a href ="index.php" class="btn btn-success form-control" >Zaloguj</a>
+                </form>
+          </div>
+</div>
+    
 </body>
 </html>

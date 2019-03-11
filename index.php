@@ -25,13 +25,13 @@ if ((isset($_SESSION['zalogowany'])) &&  ($_SESSION['zalogowany']==true)){
      <script src="skrypt.js"></script>
   </head>
   <body>
-<a href="rejestracja.php">Rejestracja </a><br><br>
       <div class="container">
           <div class="row justify-content-center">
-            <form class="form-group" action="zaloguj.php" method="POST">
+            <form class="form-group zaloguj_form" action="zaloguj.php" method="POST">
                 Login: <br/> <input class="form-control" type="text" name="login"> <br/>
                 Hasło: <br/> <input class="form-control" type="password" name="haslo"><br/><br/>
-                <input class="form-control" type="submit" value="zaloguj sie">
+                <input class="form-control btn btn-success zaloguj_button" type="submit" value="zaloguj sie">
+                <a href ="rejestracja.php" class="btn btn-primary form-control" >Zarejestruj się</a>
             </form>
             <?php 
             // Gdy ktos po raz pierwszy sie pojawi na stronie logowania to zmienna seession nie isnieje i generowalo by to blad. Gdy ktos jest po raz pierwszy to nie ma ustawionej zadnej sesji bo jeszcze niczego nie wyslal
