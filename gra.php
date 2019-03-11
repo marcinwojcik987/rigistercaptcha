@@ -32,6 +32,7 @@ if (!isset($_SESSION['zalogowany'])){
        echo " | <b>Zboże: </b>" .$_SESSION['zboze'] ;
        echo " <p> <b>E-mail: </b>" .$_SESSION['email'] ;
        echo " <br><b>Dni premium: </b>" .$_SESSION['dnipremium'] . "</p>" ;
+       
   ?>
       
   </body>

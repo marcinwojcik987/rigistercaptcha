@@ -43,6 +43,8 @@ if (isset($_POST['email'])){
         $_SESSION['e_haslo'] = "Hasla sie nie zgadzajo";
     }
 
+    $haslo_hash=password_hash($haslo1, PASSWORD_DEFAULT);
+    // echo $haslo_hash; exit();
 
     if ($wszystko_OK==true){
         //wszystkie testy zaliczone, dodajemy gracza
@@ -94,13 +96,14 @@ if (isset($_POST['email'])){
             }
         ?>     
         Twoje hasło <br> <input type="password" name="haslo1"><br>
-        Powtórz hasło <br> <input type="password" name="haslo2"><br>
         <?php
             if (isset($_SESSION['e_haslo'])){
                 echo '<div class="error">' . $_SESSION['e_haslo']. '</div>';
                 unset($_SESSION['e_haslo']);
             }
-        ?>     
+        ?> 
+        Powtórz hasło <br> <input type="password" name="haslo2"><br>
+          
         <label>
         <!-- label zamienia napis akceptuje regulamin na clickable -->
         <input type="checkbox" name="regulamin">Akceptuje regulamin 
